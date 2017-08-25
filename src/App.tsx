@@ -1,6 +1,11 @@
-import * as React from 'react';
-import { render } from 'react-dom';
+import React from "react";
+import { render } from "react-dom";
+import injectTapEventPlugin from "react-tap-event-plugin";
+import Main from "./Main";
 
-const App = () => { return (<h1>Hello World, yet again</h1>) };
+injectTapEventPlugin();
+const App = () => (
+    <Main />
+);
 
-render(<App />, document.getElementById('root'));
+render((<App />), document.getElementById("root"));

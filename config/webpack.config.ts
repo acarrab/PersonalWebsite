@@ -20,7 +20,7 @@
          loaders: [
              {
                  test: /\.tsx?$/,
-                 loader: 'ts'
+                 loader: 'ts-loader'
              }
          ]
      }

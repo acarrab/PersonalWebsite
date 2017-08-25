@@ -3,20 +3,14 @@
         "target": "es5",
         "module": "es2015",
         "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
         "jsx": "react",
         "noImplicitAny": true,
         "strictNullChecks": true,
-        "sourceMap": true,
-        "types": [
-            "node"
-        ]
+        "sourceMap": true
         
     },
     "exclude": [
         "node_modules"
-    ],
-    "filesGlob": [
-        "src/**/*.ts",
-        "src/**/*.tsx"
     ]
 }   
