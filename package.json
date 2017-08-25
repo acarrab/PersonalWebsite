@@ -1,0 +1,20 @@
+{
+  "name": "personal-website",
+  "version": "3.0.0",
+  "description": "Creating my website with typescript and react to learn react",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:acarrab/PersonalWebsite.git"
+  },
+  "keywords": {},
+  "scripts": {
+      "start": "webpack-dev-server"
+  },
+  "author": "Angelo Carrabba",
+  "license": "MIT",
+  "homepage": "https://people.cs.clemson.edu/~acarrab/",
+  "devDependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}
