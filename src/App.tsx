@@ -1,11 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
-import injectTapEventPlugin from "react-tap-event-plugin";
-import Main from "./Main";
+import WebView from "./WebView";
 
-injectTapEventPlugin();
-const App = () => (
-    <Main />
-);
+const App = () => (<WebView />);
 
-render((<App />), document.getElementById("root"));
+render((<App />), document.getElementById("app"));

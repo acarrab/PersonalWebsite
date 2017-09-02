@@ -1,0 +1,39 @@
+<div>
+    <h2>Interests</h2>
+    <ul>
+      <li> Software Engineering and Object Oriented Design </li>
+      <li> Machine Learning </li>
+      <li> Algorithm Design </li>
+    </ul>
+
+    <h2>Currently</h2>
+    <ul>
+      <li> Software Engineering Intern @ Blackbaud </li>
+      <li> Computer Science Student @ Clemson </li>
+      <li> Mathematical Sciences Student @ Clemson </li>
+    </ul>
+
+    <h2>Past</h2>
+    <ul>
+      <li> Algorithms And Data Structures Lab/Teaching Assistant @ Clemson </li>
+    </ul>
+
+    <h2>Bio</h2>
+    <p>
+      Angelo Carrabba is a Computer and Mathematical Sciences Student
+      at Clemson university with an interest in things like object
+      oriented design, web design, machine learning, and advanced
+      algorithmic problems.
+    </p>
+
+    <p> He also participate in programming contests, but would not
+    consider that to be his focus (although he considers them to be
+      very fun). </p>
+
+    <p> A lot of the things that I have done in my my undergrad are
+    pretty varied, but have normally leaned towards research in the
+    past. However, this summer I will be interning
+    at <a href="https://www.blackbaud.com/">Blackbaud</a> in
+    Charleston, South Carolina this summer, which will introduce me
+    more with software engineering. </p>
+</div>

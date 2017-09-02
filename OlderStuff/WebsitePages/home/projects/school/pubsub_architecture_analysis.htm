@@ -1,0 +1,162 @@
+<div class="block">
+    <div class="titleBar">
+        <div class="l">
+            <button class="tButton" onclick="changeTo('Projects');">
+                <!--BUTTON_BACKWARD{Back}-->
+            </button>
+        </div>
+        <div class="m">
+            <h3>Research</h3>
+            <h4>Human-Centered Cloud Robotics</h4>
+        </div>
+        <div class="r">
+        </div>
+    </div>
+
+    <h5><br>Tools for Analysis</h5>
+    <h6>Tuesday, November 15th, 2016</h6>
+    <p>
+        I mentioned previously that I will be looking at how well different publish and subscribe architectures perform in real time environments.
+        The specific environment that I am looking at is one in which a controller will be controlling, through a broker and a plant, a tiltable plate with a ball on it.
+        this allows for us to analyze the behavior over time and how well it actually performs the task, without any predictive behaviors.
+        The following figures are the basis of my visual analysis, since the ball-plate model is a simulation in the first place. There are really just
+        two things that I am looking at right now, how far the ball is from its desired location in the x and y direction and a histogram of how long the sending of
+        data actually takes. </p>
+    <div class ="imgContain">
+        <img src="resources/figure_1.png">
+        <p2><br>Distribution of Time Taken </p2>
+    </div>
+    <div class ="imgContain" style="width: 90%; margin-left: 5%; margin-right: 5%;">
+        <div style="display:flex;">
+            <img src="resources/figure_2.png" style="width: 50%">
+            <img src="resources/figure_3.png" style="width: 50%">
+        </div>
+        <p2><br>How Far from Path </p2>
+    </div>
+    <p1>
+        <br><br>
+        These diagrams will generally help with basic analysis, but numerical analysis and comparisons will
+        be done as well in the future.
+        <br>
+    </p1>
+
+
+    <h5>Mininet</h5>
+    <h6>Wednesday, November 2nd, 2016</h6>
+    <p>
+        Over the past few weeks, I have been working on creating network topologies with Mininet[1], then
+        testing the performance of MQTT QoS 2 in order to run a ball-plate simulation. A ball-plate
+        simulation is one in which we literally simulate three entities: a ball being balanced on plate, an
+        observer (plant), and a controller. The observer desires the ball to be in a certain location on the
+        plate and also in constant motion. The controller just listens the position that the observer wants and
+        tries to make it happen if it can. <br>
+        Now the specific network topology only constists of 3 hosts and their respective switches; the hosts are
+        called Broker, Plant, and Controller. The topology is shown in the diagram below.</p>
+    <div class ="imgContain">
+        <img src="resources/diagram1.png">
+        <p2><br>Network Topology </p2>
+    </div>
+    <p>
+        Although an extremely basic topology, it will be perfect for simple analysis of the effect of latency and
+        time delay between transmissions for the data between the host, broker, and plant. Originally there were
+        some problems with creating the network topology, because I was not running a controller on my machine.
+    </p>
+
+
+    <h5><br>Simulating Network Topology with Mininet</h5>
+    <h6>Wednesday, October 12th, 2016</h6>
+    <p> I have also been looking into some of the features of Mininet, which is
+        an application (or an extension of Linux) that allows you to construct a
+        network and create connections between virtual hosts and servers within
+        a network. Actually, the specific structure that I am wanting to create
+        is one in which there is a publisher, a subscriber, and a broker or a
+        controller, plant, and broker. After I achieve that, I will be adding more
+        and more subscribers and/or publishers and then study the amount of traffic
+        that goes through the network and how real time tasks are affected by the
+        changes on the load within the server and Network. I will then be adding
+        Kafka and MQTT into the mix and comparing the two. Not only comparing
+        generic MQTT and Kafka, but the three levels of MQTT (explained below)
+        and Kafka. Right now, I am currently working more and more with Mininet
+        in order to learn how to accomplish these tasks. [3]</p>
+
+
+    <h5><br>Learning more about Kafka and MQTT</h5>
+    <h6>Tuesday, October 11th, 2016</h6>
+    <p> Over the past week I have been looking more into Kafka and MQTT in order to
+        get a better understanding of their purposes and drawbacks. I spoke with my
+        mentor, Dr. Remy, and looked at some of the drawbacks and benefits of these
+        publish and subscribe architecture with respect to the amount of overhead
+        that is associated with each. Overall, it seems that Kafka processes less
+        information in the server and then sends more data in order to achieve the
+        same task on real-time process, whereas MQTT seems to process more within
+        the servers and then send less data overall. Hence the architecture, MQTT,
+        living up to its name of mosquito. MQTT has three levels of service, unlike
+        Kafka which is always guaranteed at least once delivery; MQTT can be at most
+        once but maybe not at all (QoS 0), at least once (QoS 1), and at most once
+        (QoS 2) whereas Kafka is usually only guaranteeing at least once delivery.
+        This creates the possibility for a lot of data being sent over the network,
+        but is also quicker than at most once delivery, because of the lack of a 3
+        way handshake. [1, 2] I am curious about what the size of the Kafka messages
+        were that were stored on the server, because if the link to the next message
+        is just as long as the message, then we will definitely get a much larger
+        amount of data sent. Overall, it seems that the larger the message being sent
+        in Kafka, the more the overhead shrinks in comparison; in other words, the
+        header does not need to change size when the message size changes by that
+        much so the theoretically optimal thing to do is to have a message of
+        infinite length and then the overhead would be zero. (not really feasible but
+        makes mathematical sense).</p>
+
+    <h5><br>Learning More about TCP</h5>
+    <h6>Monday, October 10th, 2016</h6>
+    <p> Last week I worked on our Networking class project for TCP. I started out
+        with just a basic skeleton file with the basic necessities of establishing
+        a TCP connection between an echo server and an echo client. I made a basic
+        overarching protocol where header information was sent first with the
+        amount of bytes that were going to be sent, and the number of messages that
+        would be sent. With this, I could declare if there were going to be more
+        messages and how many more would be sent. This way there would be no way
+        for the server to close the connection before the client was done
+        communicating with the server. The server then did the simple operation of
+        just inverting the characters in the array; it just switched the case of
+        the letters. This was a toy project just to learn how to use TCP and how
+        to guarantee that the connection does not close before the message is done
+        sending. </p>
+
+
+    <h5><br>Dweepy and Dweet.io Analysis</h5>
+    <h6>Tuesday, September 6th, 2016</h6>
+    <p> This past week I worked on creating software for in depth analysis of the
+        sending and receiving procedure for dweet.io! I started with creating
+        software to time how long it takes for a message to be published and a
+        message to be received when using dweepy. Then, using tcpdump, I analyzed
+        how many messages were sent and received. Using pexpect, a python library
+        for scripting, I ran tcpdump as a child process and used it to analyze
+        things like, how many sends, time between sends and receives, the number
+        of sends and receives, the number of bytes sent, and finally the average
+        ordering of the send receive procedures as well as the percentage of n
+        messages being sent over the trials.</p>
+
+    <p> After collecting the data, we can analyze the amount of overhead that
+        exists for sending an integer (4 bytes) and a string of length 10
+        (10 bytes) for a total of 14 bytes. For both publishing and subscribing,
+        we receive 5,500 bytes and send 1,500 bytes. Also, I looked at the time it
+        takes to get from the dweet.io to the first requests, which doesn't seem to
+        be that long on average. Most of the time was spent during the send and
+        receives between the server and client; there were 16 send/receives in
+        totality.</p>
+
+    <p> One problem with my method was that I was waiting 1 second with pexpect
+        in order to see if anymore messages would be sent and received, but this
+        gave the possibility for outliers to be thrown into the mix which
+        resulted in some strange time problems. (Negative time results) Overall,
+        the quality of the results so far is best when looking at the average
+        ordering and the number of bytes sent. In order to improve, I will rerun
+        the trials with a longer delay in between functions in order to catch the
+        outliers that take a long time to send a response.</p>
+
+    <p> It is interesting that so much data is actually sent to publish such a
+        small message, but further research must be done to see what can be
+        removed from the process. I will start working with pycurl and implement
+        my own method for communicating with the server and see how that affects
+        the overall times.</p>
+</div>

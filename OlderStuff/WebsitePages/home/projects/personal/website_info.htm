@@ -1,0 +1,116 @@
+<div class="block">
+    <div class="titleBar">
+        <div class="l">
+            <button class="tButton" onclick="changeTo('Projects');">
+                <!--BUTTON_BACKWARD{Back}-->
+            </button>
+        </div>
+        <div class="m">
+            <h3>Website Information</h3>
+            <h4>How this website was created..</h4>
+        </div>
+        <div class="r">
+        </div>
+    </div>
+
+    <h5> Introduction </h5>
+
+    <p> This website was written using the new HTML5 feature, canvas. It gives
+        the ability to draw things onto it and with this, you can create
+        websites that are styled differently than those of the past.</p>
+
+    <p> The canvas contains a tree of the Nodes that you see drawn. The website
+        is organized to take advantage of the trees properties, so that you can
+        search through the website by clicking through, hopefully, reaching your
+        goal. Allowing the person to see a decent amount of depth is also
+        important as it allows for quicker and more accurate navigation through
+        the website. </p>
+
+    <p> Using javascript, we control the canvas and any other events that occur
+        on this website. The only problem with this website so far is that it
+        may be too graphically intense for some phones, which I have not been
+        able to test on and it will run very glitchily. In order to combat that,
+        I remove some animations if I find out if the user is on a mobile
+        device. </p>
+
+    <p> There are two types of major objects that I am working with: Nodes and
+        Specks. The edges, the lines between nodes, are just drawn with no
+        special properties being saved for them. </p>
+
+
+    <h5> Node Information </h5>
+
+    <p> In order to generate the graph structure from the tree, I actually use a
+        breadth first search from the head of the tree to mark the depths of the
+        nodes as well as their relative positions. For my first search, I mark
+        the nodes to be evenly spaced out around the node and then the relative
+        degrees is preserverd from each Node to its neighbors, so when you move
+        through the graph the visual structure does not change. The structure of
+        the code is written as...</p>
+
+    <div class ="imgContain"> <img src="resources/CodeStructure.png"
+        style="height: 25em !important;"> <p1> <br>The Code Structure </p1>
+        </div>
+
+
+    <p> The Node has two positions that are actually being stored for animation
+        purposes. It's current location and the location that it is moving to.
+        This allows for seemless transitions between different states. The
+        state, new position, is simply set and the position is returned based on
+        the current time. </p>
+
+    <p> The Canvas is waiting on input from the user by using event listeners.
+        When a user clicks on or hovers over the canvas, the mouse's window
+        position is marked and then translated to where it actually is on the
+        canvas. Then, the distance from the mouse to the nodes is calculated and
+        if the distance is less than the current node's radius, then an
+        interaction occurs. A state is changed in which the node size increases
+        by a set amount. </p>
+
+    <p> Most of the Nodes have a link to a webpage being stored on them. When
+        this node is activated, the page is pulled from the server and pulled to
+        the user, or it is copied from another place on the page. In order to
+        make this seem smoother, an animation was added so the pages seem to
+        slide in. This is one of the animations that is turned off for mobile
+        users. </p>
+
+
+    <h5> Speck Information </h5>
+
+    <p> The specks just consist of a position and are randomly assigned a color
+        in an adhock fasion so that it stays the same. Pretty much a really
+        basic hash function. I left support for additional particle movement
+        functions to be added using an interface type structure based on what is
+        already there. I just have one basic behavior right now but will add
+        more in the future. </p>
+
+    <p> When a behavior is set, the associated information is added to all the
+        speck objects. In the case of the linear traveling of the particle, a
+        direction vector is added to the Specks with a random direction. They
+        then travel in a line that bounces off of the boundaries. Right now, I
+        believe that this method is pretty lightweight as changing directions
+        requires a pretty much minimal amount of calculation.</p>
+
+    <p> So pretty much in the appended step function that was chosen, I do the
+        maintenance on the Specks properties, like bounds checking and then move
+        it a tiny bit. Then the universal draw function just continuously
+        updates the canvas.</p>
+
+
+    <h5> Further Problems to Resolve </h5>
+
+    <p> In order to actually increase the smoothness of loading, the html is
+        cached. But, a problem with this method of caching is that it is
+        actually downloading the whole website, which at this point is pretty
+        small, but in the future can become burdensome on some devices. In the
+        future I plan on only caching the nodes that are close to the current
+        node. This would allow for smooth transitions as long as a person does
+        not click too far away.</p>
+
+    <p> There are also problems with how much graphics the users can handle; if
+        someone is using a mobile device, there is a good likelihood that there
+        will be some jumping and reduced frame rates. At this point there is
+        functionality to reduce the motion of certain things if it is a mobile
+        device that is accessing the website, but further refactoring can
+        probably be done in order to optimize the code and reduce redundancy in
+        calculations and storing of information.</p> </div>
