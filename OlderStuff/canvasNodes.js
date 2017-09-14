@@ -1,3 +1,12 @@
+/*
+This is some code I wrote when I did not write javascript well and wrote it 
+without modules and other things that make code nice and maintainable, so I 
+use some of the logic for writing out my code, but most of it is unnecessary to 
+implement, because I want something more minimal now. 
+
+Also not doing clicks at the moment. 
+*/
+
 "use strict";
 var fps = 25;
 var still = null;

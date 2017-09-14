@@ -4,11 +4,13 @@ import NavigationBar from "./NavigationBar";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import NodeNavigation from "./pages/nodeNavigation/CanvasNodes"
 
 export default class WebView extends React.Component {
     public render() {
         return (
             <div className="mainContent">
+                <NodeNavigation/>
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/about" component={About} />

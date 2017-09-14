@@ -10,6 +10,10 @@ export class GraphNode extends Node {
             this.connectedNodes.push(node);
             this.relativePlacement.push(relativePlacement);
         }
+
+        public forEachNode(transform:(node:Node, radian:number) => void) {
+            this.connectedNodes.forEach((node, index) => { transform(node, this.relativePlacement[index])});
+        }
         
         private baseRadian: number;
     

@@ -97,8 +97,8 @@ class GeometricSeriesCap {
 }
 
 const guaranteedDepth = 5;
-const radiusTransform = new GeometricSeriesCap(.9, guaranteedDepth);
-const distanceTransform = new GeometricSeriesCap(.7, guaranteedDepth);
+const radiusTransformer = new GeometricSeriesCap(.9, guaranteedDepth);
+const distanceTransformer = new GeometricSeriesCap(.7, guaranteedDepth);
 
 
 export class CanvasGraph extends Graph implements CanvasDrawable {
@@ -116,11 +116,17 @@ export class CanvasGraph extends Graph implements CanvasDrawable {
     private visited: { [nodeName: string] : boolean };
     
     private update_Recursive(node: PageNode, x:number, y:number, depth:number) {
+        // We visit every node at least once and set it's distance if possible.
         if (this.visited[node.page.name] === undefined) {
             this.visited[node.page.name] = true;
             node.setDepth(depth);
-            node.setRadius(radiusTransform.transform(this.radiusBase, depth));
+            node.setRadius(radiusTransformer.transform(this.radiusBase, depth));
             node.setPosition(x, y);
+            let distance = distanceTransformer.transform(this.distanceBase, depth);
+            //nodes are guaranteed, by us before, to have parent as first node, so we can ignore that here
+            node.forEachNode((other: PageNode, radians: number) => {
+                this.update_Recursive(other, x + Math.cos(radians) * distance, y + Math.sin(radians) * distance, depth + 1);
+            });
         }
     }
     

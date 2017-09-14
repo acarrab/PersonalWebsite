@@ -37,19 +37,19 @@ function indexOfName(pgs: Array<Page>, name: string): number {
     return results.length > 0 ? pgs.indexOf(results[0]) : -1;
 }
 
-function ValidatePagesConnections(pgs: Array<Page>, canFix:boolean = false) {
+function ValidatePagesConnections(pgs: Array<Page>, canFix: boolean = false) {
     let wasVague = false;
     for (let i = 0; i < pgs.length; i++) {
-        for (let pageName in pgs[i].connectionNames) {
-            let pageIndex = indexOfName(pgs, pageName); 
+        pgs[i].connectionNames.forEach(pageName => {
+            let pageIndex = indexOfName(pgs, pageName);
 
             if (pageIndex === -1 || (!canFix && pgs[pageIndex].connectionNames.indexOf(pgs[i].name) === -1)) {
-                console.error("One way connection from " + pgs[i].name + " to "  + (pageIndex === -1 ? "?" : pageName));
+                console.error("One way connection from " + pgs[i].name + " to " + (pageIndex === -1 ? "?" : pageName));
                 wasVague = true;
             } else if (pgs[pageIndex].connectionNames.indexOf(pgs[i].name) !== -1) {
                 pgs[pageIndex].connectionNames.push(pgs[i].name);
             }
-        }
+        })
     }
     if (wasVague) {
         throw "Page Indexing for pages is vague. Connections name does not exist";
