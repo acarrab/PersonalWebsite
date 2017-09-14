@@ -1,28 +1,29 @@
 import Node from "./Node"
-const nodeOrientationBaseInRadians = 0;
+export const nodeOrientationBaseInRadians = 0;
 
-export default class GraphNode extends Node {
+export class GraphNode extends Node {
     
         private connectedNodes:Array<Node>;
         private relativePlacement:Array<number>; // in radians
     
+        public addNode(node:Node, relativePlacement:number) {
+            this.connectedNodes.push(node);
+            this.relativePlacement.push(relativePlacement);
+        }
+        
         private baseRadian: number;
     
-        public constructor(index:number, originalDepth:number, baseRadian?:number) { 
+        public constructor(depthOriginal:number, baseRadian:number = nodeOrientationBaseInRadians) { 
             super(); 
             this.connectedNodes = [];
             this.relativePlacement = [];
     
-            if (baseRadian !== undefined) {
-                this.baseRadian = baseRadian;
-            } else {
-                this.baseRadian = nodeOrientationBaseInRadians;
-            }
+            this.baseRadian = baseRadian;
             
-            this.depthOriginal = originalDepth;
-            this.depthCurrent = originalDepth;
+            this.depthOriginal = depthOriginal;
+            this.depthCurrent = depthOriginal;
         }
-    
+        
     
         private depthOriginal: number;
         private depthCurrent: number;
@@ -34,14 +35,10 @@ export default class GraphNode extends Node {
             return this.depthCurrent;
         }
         public setDepth(depth:number) {
+            if (this.depthOriginal === null) {
+                this.depthOriginal = depth;
+            }
             this.depthCurrent = depth;
-        }
-    
-        
-        private index: number = -1;
-    
-        public getIndex(): number {
-            return this.index;
         }
     
     

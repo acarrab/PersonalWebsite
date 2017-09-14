@@ -1,4 +1,5 @@
 import Point from "./Point";
+import { CanvasDrawable } from "./Artist";
 
 const positionTransitionTime = 500;//ms
 const radiusTransitionTime = 500;//ms
@@ -44,8 +45,18 @@ class TransitionValue {
     }
 }
 
-export default class Node {
-    
+export default class Node implements CanvasDrawable {
+    draw(cvs: HTMLCanvasElement, ctx: CanvasRenderingContext2D): void {
+        ctx.beginPath();
+        let pos = this.getPosition();
+        ctx.arc(pos.x, pos.y, this.getRadius(), 0, Math.PI * 2);
+        ctx.fillStyle = "yellow";
+        ctx.fill();
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = "orange";
+        ctx.stroke();
+    }
+
     private x: TransitionValue = new TransitionValue(positionTransitionTime);
     private y: TransitionValue = new TransitionValue(positionTransitionTime);
     private radius: TransitionValue = new TransitionValue(radiusTransitionTime);
@@ -57,6 +68,19 @@ export default class Node {
 
     public getRadius():number {
         return this.radius.get() * this.swell.get();
+    }
+
+    public setPosition(x:number, y:number):void {
+        this.x.set(x);
+        this.y.set(y);
+    }
+
+    public setRadius(radius:number):void {
+        this.radius.set(radius);
+    }
+
+    public setSwell(sizeMultiplier:number):void {
+        this.swell.set(sizeMultiplier);
     }
 
 }
