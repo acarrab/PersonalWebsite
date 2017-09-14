@@ -1,10 +1,14 @@
 import React from "react";
 import { render } from "react-dom";
-import WebView from "./WebView";
 import { BrowserRouter as Router } from "react-router-dom";
+import NavigationBar from "./NavigationBar";
+import WebView from "./WebView";
 
 render((
     <Router>
-        <WebView />
+        <div>
+            <NavigationBar />
+            <WebView />
+        </div>
     </Router>
 ), document.getElementById("app"));
