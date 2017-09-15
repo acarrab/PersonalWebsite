@@ -46,7 +46,7 @@ function ValidatePagesConnections(pgs: Array<Page>, canFix: boolean = false) {
             if (pageIndex === -1 || (!canFix && pgs[pageIndex].connectionNames.indexOf(pgs[i].name) === -1)) {
                 console.error("One way connection from " + pgs[i].name + " to " + (pageIndex === -1 ? "?" : pageName));
                 wasVague = true;
-            } else if (pgs[pageIndex].connectionNames.indexOf(pgs[i].name) !== -1) {
+            } else if (pgs[pageIndex].connectionNames.indexOf(pgs[i].name) === -1) {
                 pgs[pageIndex].connectionNames.push(pgs[i].name);
             }
         })

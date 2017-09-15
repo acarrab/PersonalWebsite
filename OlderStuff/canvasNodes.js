@@ -300,7 +300,6 @@ function canvasModel() {
             function setFocusOn(n) {
                 var t = '/~acarrab/?node='+n.text.replace(" ", "%20");
                 window.history.pushState("","",t);
-                console.log(t);
                 pullPage(n.link);
                 model.head = n;
                 var i, j;

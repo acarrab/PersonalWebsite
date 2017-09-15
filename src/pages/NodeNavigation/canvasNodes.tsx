@@ -10,10 +10,7 @@ var backColor = "#FF533D"; "orange"; "#a338ec";//"#F62217";
 var speckColor = "linen";
 var canvasColor = "#0F1626";
 
-
 const canvasId: string = "navigationNodesCanvas";
-
-const resolution = 200;
 
 class wheelHighlights {
     static lineColor: string = "#FF533D";
@@ -21,46 +18,75 @@ class wheelHighlights {
     static focusColor: string = "#6d6d72";
 };
 
+class CanvasController {
 
-class GetCanvas extends React.Component {
     private pages:CanvasGraph;
+    private width:number;
+    private height:number;
+
+    private canvas:HTMLCanvasElement;
+    private context:CanvasRenderingContext2D;
+
     public constructor() {
-        super();
+
         var canvas:any = document.getElementById(canvasId);
         if (canvas === null || !(canvas instanceof HTMLCanvasElement)) {
             console.error("canvas does not exist yet")
             throw new Error("No canvas");
         }
-        this.pages = new CanvasGraph(canvas, resolution, resolution);
-        this.pages.update(Page.homePage);
+
+        this.canvas = canvas;
+        this.width = canvas.width;
+        this.height = canvas.height;
         
+        this.pages = new CanvasGraph(canvas, this.width, this.height);
+
         var ctx = canvas.getContext("2d");
         if (ctx === null || !(ctx instanceof CanvasRenderingContext2D)) {
             console.error("Could not get rendering context");
             throw new Error("No CanvasRenderingContext2D");
         }
-        this.pages.draw(canvas, ctx);
+        this.context = ctx;
+        
+
+        this.update();
+        this.draw();
     }
-    render() {
-        return (<div></div>);
+    public draw() {
+        this.pages.draw(this.canvas, this.context);
+    }
+    public update() {
+        this.pages.update(Page.homePage);   
+    }
+    private test() {
+        var ctx = this.context;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(this.width, this.height);
+        ctx.strokeStyle = "green";
+        ctx.stroke();
+    }
+    
+}
+
+
+class CanvasProcess {
+    private canvasController:CanvasController;
+    private mainLoop() {
+        var myThis = this;
+        this.canvasController.draw();
+        setTimeout(() => { myThis.mainLoop(); }, 1000);
+    }
+    constructor() {
+        this.canvasController = new CanvasController();
+        this.mainLoop();
     }
 }
-export default class NodeNavigation extends React.Component {
-    public render() {
-        return (
-            <div>
-            <canvas
-                id={canvasId}
-                width="100"
-                height="100"
-                style={{
-                    width: resolution + "px",
-                    height: resolution + "px"
-                }}>
-            </canvas>
-            <GetCanvas/>
-            </div>
-            
-        );
+
+
+export default class NodeNavigation {
+    static canvasMaintainer:CanvasProcess;
+    static start() {
+        NodeNavigation.canvasMaintainer = new CanvasProcess();
     }
 }

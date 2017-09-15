@@ -7,10 +7,13 @@ import Contact from "./pages/Contact";
 import NodeNavigation from "./pages/nodeNavigation/CanvasNodes"
 
 export default class WebView extends React.Component {
+    constructor(props: {} | undefined) {
+        super(props);
+        NodeNavigation.start();
+    }
     public render() {
         return (
             <div className="mainContent">
-                <NodeNavigation/>
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/about" component={About} />
