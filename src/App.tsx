@@ -5,7 +5,7 @@ import NavigationBar from "./NavigationBar";
 import WebView from "./WebView";
 
 render((
-    <Router>
+    <Router basename="/~acarrab">
         <div>
             <NavigationBar />
             <WebView />
