@@ -17,3 +17,22 @@ body {
     -webkit-box-shadow: 0em 0em .5em 0em #ddd;
     box-shadow:         0em 0em .5em 0em #ddd;
 }
+
+/* Canvas placement */
+#canvasContainer {
+    display: inline-block;
+    position: relative; 
+    margin-left:  7%;
+    width: 86%;
+    background-color: linen;
+}
+
+#canvasSizingDummy {
+    position: absolute;
+    margin-top: 86%;
+}
+
+canvas {
+    position: absolute;
+    width: 100%;
+}

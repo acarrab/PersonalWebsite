@@ -1,11 +1,14 @@
 import React from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import NavigationBar from "./NavigationBar";
-import WebView from "./WebView";
+import NavigationBar from "./navigation/NavigationBar.Component";
+import WebView from "./WebView.Component";
 
+
+//should make basename dynamically determined from uri
+/*basename="/~acarrab">*/
 render((
-    <Router basename="/~acarrab">
+    <Router>
         <div>
             <NavigationBar />
             <WebView />
