@@ -1,0 +1,1 @@
+chmod o+r index.html style.css ./dist/static/*
