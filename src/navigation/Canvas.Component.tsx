@@ -2,6 +2,8 @@ import React from "react";
 import { ExciteableProcess, Updateable, drawAll } from "../Process";
 import CanvasGraph from "./representation/graph/CanvasGraph";
 import Pages from "../pages/Pages";
+import { withRouter } from "react-router";
+
 const fps: number = 25.0;
 const msPerFrame = 1000 / fps;
 
@@ -69,13 +71,21 @@ interface CanvasState {
     width: number;
     height: number;
 }
+interface Location {
+    pathname: string
+}
+interface History {
+    location: Location
+}
+interface CanvasProps {
+    history?: History;
+}
 
-
-export default class CanvasComponent extends React.Component {
+class CanvasComponent extends React.Component<CanvasProps> {
     controller: CanvasController;
     state: CanvasState;
     canvas: HTMLCanvasElement;
-    props: { path: string };
+    props: CanvasProps;
     constructor() {
         super();
         this.state = {
@@ -100,6 +110,11 @@ export default class CanvasComponent extends React.Component {
     }
 
     componentWillReceiveProps() {
+        console.log(this.props);
+        if (this.props.history !== undefined) {
+            console.log("RECIEVED PROP");
+            console.log(this.props.history.location.pathname);
+        }
         this.update()
     }
     update(): void {
@@ -107,7 +122,13 @@ export default class CanvasComponent extends React.Component {
         let h = this.canvas.clientHeight;
         // height  always stays the same
         this.setState({ width: baseSize * w / h });
-        Pages.getInstance().setCurrentRoute(this.props.path);
+        if (this.props.history !== undefined) {
+            Pages.getInstance().setCurrentRoute(this.props.history.location.pathname);
+        } else {
+            // should not happen
+            Pages.getInstance().setCurrentRoute("/");
+        }
+        
         this.controller.update();
     }
     public render() {
@@ -116,3 +137,4 @@ export default class CanvasComponent extends React.Component {
         );
     }
 }
+export default withRouter(CanvasComponent);
