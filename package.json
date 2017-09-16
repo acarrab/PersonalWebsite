@@ -8,21 +8,26 @@
   },
   "keywords": {},
   "scripts": {
-    "start": "webpack-dev-server --hot"
+    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot",
+    "build": "./node_modules/webpack/bin/webpack.js"
   },
   "author": "Angelo Carrabba",
   "license": "MIT",
   "homepage": "https://people.cs.clemson.edu/~acarrab/",
   "devDependencies": {
     "@types/material-ui": "^0.18.0",
+    "@types/prop-types": "^15.5.1",
     "@types/react": "^16.0.5",
     "@types/react-dom": "^15.5.4",
+    "@types/react-router": "^4.0.15",
     "@types/react-router-dom": "^4.0.7",
     "@types/react-tap-event-plugin": "0.0.30",
     "@types/webpack": "^3.0.0",
     "material-ui": "^0.19.0",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-tap-event-plugin": "^2.0.1",
     "ts-loader": "^2.3.4",

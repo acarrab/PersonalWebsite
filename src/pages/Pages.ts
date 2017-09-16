@@ -39,12 +39,13 @@ export default class Pages {
         return this.homePage.slice();
     }
     
-    private currentPage: string;
-    public getCurrentPage(): string {
-        return this.currentPage.slice();
+    private currentRoute: string;
+    public getCurrentRoute(): string {
+        return this.currentRoute.slice();
     }
-    public setCurrentPage(pageName:string) {
-        this.currentPage = pageName.slice();
+    public setCurrentRoute(route:string) {
+        console.log(route);
+        this.currentRoute = route.slice();
     }
 
     
@@ -60,11 +61,11 @@ export default class Pages {
     
     private constructor() {
         this.homePage = p.Home;
-        this.currentPage = p.Home;
+        this.currentRoute = "/";
         this.pages = [
-            new Page(p.Home, "/", [p.About, p.Contact]),
-            new Page(p.About, "/about"),
-            new Page(p.Contact, "/contact")
+            new Page(p.Home, "/", [p.About]),
+            new Page(p.About, "/about", [p.Contact]),
+            new Page(p.Contact, "/contact"),
         ];
         this.fixPages();
     }

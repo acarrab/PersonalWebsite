@@ -10,7 +10,7 @@ export default class WebView extends React.Component {
     public render() {
         return (
             <div className="mainContent">
-                <NodeNavigation />
+                <NodeNavigation/>
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/about" component={About} />

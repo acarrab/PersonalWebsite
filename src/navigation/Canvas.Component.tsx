@@ -1,9 +1,11 @@
 import React from "react";
 import { ExciteableProcess, Updateable, drawAll } from "../Process";
 import CanvasGraph from "./representation/graph/CanvasGraph";
+import Pages from "../pages/Pages";
 const fps: number = 25.0;
 const msPerFrame = 1000 / fps;
 
+const baseSize = 1000;
 
 class CanvasController {
 
@@ -22,12 +24,8 @@ class CanvasController {
         ];
     }
     
-    constructor(canvas: HTMLCanvasElement | null | React.ReactInstance) {
-        if (canvas instanceof HTMLCanvasElement) {
-            this.canvas = canvas;
-        } else {
-            throw new Error("No such canvas");
-        }
+    constructor(canvas: HTMLCanvasElement) {
+        this.canvas = canvas;
 
         let intermediateContext = this.canvas.getContext("2d");
         if (intermediateContext instanceof CanvasRenderingContext2D) {
@@ -67,21 +65,54 @@ class CanvasController {
     }
 }
 
+interface CanvasState {
+    width: number;
+    height: number;
+}
+
+
 export default class CanvasComponent extends React.Component {
     controller: CanvasController;
+    state: CanvasState;
+    canvas: HTMLCanvasElement;
+    props: { path: string };
+    constructor() {
+        super();
+        this.state = {
+            width: 1000,
+            height: 1000
+        };
+    }
     componentDidMount() {
+        let canvasTemp = this.refs.canvas;
+        if (canvasTemp instanceof HTMLCanvasElement) {
+            this.canvas = canvasTemp;
+        } else {
+            throw new Error("No such canvas");
+        }
+        this.controller = new CanvasController(this.canvas);
+        window.addEventListener("resize", this.update.bind(this));
         this.update();
     }
-    update(): void {
-        var canvas = this.refs.canvas;
-        if (this.controller === undefined) {
-            this.controller = new CanvasController(canvas);
-        }
+    
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.update.bind(this));
+    }
 
+    componentWillReceiveProps() {
+        this.update()
+    }
+    update(): void {
+        let w = this.canvas.clientWidth;
+        let h = this.canvas.clientHeight;
+        // height  always stays the same
+        this.setState({ width: baseSize * w / h });
+        Pages.getInstance().setCurrentRoute(this.props.path);
+        this.controller.update();
     }
     public render() {
         return (
-            <canvas ref="canvas" width={1000} height={1000} />
+            <canvas ref="canvas" width={this.state.width} height={this.state.height} />
         );
     }
 }

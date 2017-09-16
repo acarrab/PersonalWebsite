@@ -27,16 +27,8 @@ export default class PagedGraph extends Graph {
         }
         let page = this.pages.get(pageIndex);
         let node = new PageNode(depth, rotationBase, page);
-        this.pageNodes[nodeName] = node;
+        this.pageNodes[page.route] = node;
 
-        /*
-        let spacing = "> ";
-        for(let i = 0; i < depth; i++) {
-            spacing += "> ";
-        }
-        console.log(spacing + nodeName);
-        console.log(this.pages)
-        */
         let index = 0;
         
         // this has to be first node
@@ -47,10 +39,10 @@ export default class PagedGraph extends Graph {
         page.connectionNames.forEach((pageName) => {
             if (lastNode === undefined || pageName !== lastNode.getPage().name) {
                 // get how they are rotated around us
-                let rotation = 2.0 * Math.PI * index / page.connectionNames.length;
+                let rotation = 2.0 * Math.PI * index / page.connectionNames.length + rotationBase;
                 // get how we are rotated around them
-                let theirInverseRotation = rotation < Math.PI ? rotation + Math.PI : rotation - Math.PI;
-                node.addNode(this.generateNodes(pageName, theirInverseRotation, depth + 1, node), rotation);
+                let theirStartingRotation = rotation < Math.PI ? rotation + Math.PI : rotation - Math.PI;
+                node.addNode(this.generateNodes(pageName, theirStartingRotation, depth + 1, node), rotation);
                 index++;
             }
         });
@@ -68,11 +60,15 @@ export default class PagedGraph extends Graph {
         if (homePageIndex === -1) {
             throw new Error("Home page does not exist in pages");
         }
+        
+        // generate once to init
         this.generateNodes(this.pages.getHomePage(), nodeOrientationBaseInRadians, 0);
+        console.log(this.pages);
+        console.log(this.generateNodes);
     }
 
     public update(width: number, height: number) {
-        super.update(width, height, this.pageNodes[this.pages.getCurrentPage()]);
+        super.update(width, height, this.pageNodes[this.pages.getCurrentRoute()]);
     }
 
     public getUpdatedEdges():Array<[GraphNode, GraphNode]> {
