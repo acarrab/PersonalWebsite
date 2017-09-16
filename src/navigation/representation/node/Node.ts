@@ -1,5 +1,4 @@
-import Point from "../Point";
-import { Updateable } from "navigation/Process"
+
 const positionTransitionTime = 500;//ms
 const radiusTransitionTime = 500;//ms
 const swellTransitionTime = 100;//ms
@@ -34,29 +33,30 @@ class TransitionValue {
         return progress * this.valueNew + (1.0 - progress) * this.valueOld;
     }
 
-    public constructor(transitionTime: number) {
+    public constructor(transitionTime: number, initialValue: number) {
         this.transitionTime = transitionTime;
+        this.transitionStart = 0;
+        
+        this.valueNew = initialValue;
     }
 }
 
-export class Node {
-    draw(cvs: HTMLCanvasElement, ctx: CanvasRenderingContext2D): void {
-        ctx.beginPath();
-        let pos = this.getPosition();
-
-        ctx.arc(pos.x, pos.y, this.getRadius(), 0, Math.PI * 2);
-        ctx.fillStyle = "yellow";
-        ctx.fill();
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = "orange";
-        ctx.stroke();
+export class Point {
+    public x:number;
+    public y:number;
+    public constructor(x: number, y:number) {
+        this.x = x;
+        this.y = y;
     }
+}
 
-    private x: TransitionValue = new TransitionValue(positionTransitionTime);
-    private y: TransitionValue = new TransitionValue(positionTransitionTime);
-    private radius: TransitionValue = new TransitionValue(radiusTransitionTime);
+export default class Node {
 
-    private swell: TransitionValue = new TransitionValue(swellTransitionTime);
+    private x: TransitionValue = new TransitionValue(positionTransitionTime, 0);
+    private y: TransitionValue = new TransitionValue(positionTransitionTime, 0);
+    private radius: TransitionValue = new TransitionValue(radiusTransitionTime, 1);
+
+    private swell: TransitionValue = new TransitionValue(swellTransitionTime, 1);
 
     public getPosition(): Point {
         return new Point(this.x.get(), this.y.get());

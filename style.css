@@ -19,7 +19,7 @@ body {
 }
 
 /* Canvas placement */
-#canvasContainer {
+.canvasContainer {
     display: inline-block;
     position: relative; 
     margin-left:  7%;
@@ -27,7 +27,7 @@ body {
     background-color: linen;
 }
 
-#canvasSizingDummy {
+.canvasSizingDummy {
     position: absolute;
     margin-top: 86%;
 }

@@ -1,82 +1,78 @@
-import { GraphNode } from "./GraphNode";
-import { pages, Page } from "pages/Pages"
+import GraphNode from "../node/GraphNode";
 import { Updateable } from "Process";
 
-export const nodeOrientationBaseInRadians = 0;
 
-
-function indexOfName(pgs: Array<Page>, name: string): number {
-    let results = pgs.filter((page) => (page.name === name));
-    return results.length > 0 ? pgs.indexOf(results[0]) : -1;
-}
-
-class PageNode extends GraphNode {
-
-    public page: Page;
-
-    public constructor(page: Page, depthOriginal: number, baseRadians: number) {
-        super(depthOriginal, baseRadians);
-        this.page = page;
+// keeps value between 0 and 1 up to a certain depth, because that probably looks nicer
+class GeometricSeriesCap {
+    private ratio:number;
+    private max:number;
+    public transform(value:number, depth:number):number {
+        return value * Math.pow(this.ratio, depth) / this.max;
+    }
+    public constructor(ratio:number, guaranteedSeeingDepth:number) {
+        this.ratio = ratio;
+        this.max = 0;
+        for (let i = 1; i <= guaranteedSeeingDepth; i++) {
+            this.max += Math.pow(ratio, i);
+        }
     }
 }
+
+const guaranteedDepth = 5;
+const radiusTransformer = new GeometricSeriesCap(.9, guaranteedDepth);
+const distanceTransformer = new GeometricSeriesCap(.7, guaranteedDepth);
 
 
 export default class Graph {
 
-    protected nodes: Array<PageNode>;
+    private radiusBase:number;
+    private distanceBase:number;
+    
+    private alternatingTrue:boolean;
 
-    protected createdNodes: { [name: string]: PageNode };
-
-    // we ensure that the first element is the lastNode
-    private generateNode(lastNode: PageNode, theta: number, depth: number, newNodeName: string): PageNode {
-     
-        let rotation = theta - Math.PI; // flip around
-        let page = pages[indexOfName(pages, newNodeName)]; // should always exist
-        let node = new PageNode(page, depth, rotation);
-        this.createdNodes[newNodeName] = node;
-        this.nodes.push(node);
-
-        
-        // makes these nicer to look at
-        while (rotation > Math.PI * 2) {
-            rotation  -= Math.PI * 2
+    private lastComputedEdges:Array<[GraphNode, GraphNode]>;
+    
+    private update_Recursive(node: GraphNode, x:number, y:number, depth:number): boolean {
+        // We visit every node at least once and set it's distance if possible.
+        if (node.wasVisited !== this.alternatingTrue) {
+            node.wasVisited = this.alternatingTrue;
+            node.setDepth(depth);
+            node.setRadius(radiusTransformer.transform(this.radiusBase, depth));
+            node.setPosition(x, y);
+            let distance = distanceTransformer.transform(this.distanceBase, depth);
+            //nodes are guaranteed, by us before, to have parent as first node, so we can ignore that possible problem here
+            node.forEachNode((other: GraphNode, radians: number) => {
+                let theirX = x + Math.cos(radians) * distance;
+                let theirY =  y + Math.sin(radians) * distance;
+                if(this.update_Recursive(other, theirX, theirY, depth + 1)) {
+                    this.lastComputedEdges.push([node, other]);
+                    other.setPartOfPath(other.isInversion(node));
+                }
+            });
+            return true;
         }
-        while (rotation < 0) {
-            rotation += Math.PI * 2
-        }
-        // add our parent
-        node.addNode(lastNode, rotation);
-
-        // add rest
-        let trueOrdering = 1;
-        page.connectionNames.forEach((pageName) => {
-            // it should contain parent page by specifications so
-            if (pageName === lastNode.page.name) { return; }
-            let theirRotation = rotation + 2 * Math.PI * trueOrdering / page.connectionNames.length;
-            trueOrdering++;
-            node.addNode(this.generateNode(node, theirRotation, depth + 1, pageName), theirRotation);
-        });
-        
-        // return created node
-        return node;
+        return false;
+    }
+    
+    /**
+     * 
+     * @param width canvas width
+     * @param height canvas height
+     * @param headNode current center of graph
+     * @returns edges that were created
+     */
+    public update(width: number, height: number, headNode: GraphNode) {
+        this.radiusBase = Math.min(width, height) / 3.0;
+        this.distanceBase = Math.min(width, height) / 2.0;
+        this.lastComputedEdges = [];
+        // this makes it so you don't have to reset graph every time
+        this.alternatingTrue = !headNode.wasVisited;
+        headNode.setPartOfPath(true);
+        this.update_Recursive(headNode, width/2, height/2, 0);
     }
 
-    public constructor() {
-
-        this.createdNodes = {};
-        this.nodes = [];
-        let homePage = pages[indexOfName(pages, Page.homePage)];
-        let homeNode = new PageNode(homePage, 0, nodeOrientationBaseInRadians);
-        this.createdNodes[Page.homePage] = homeNode;
-        this.nodes.push(homeNode);
-
-
-        homePage.connectionNames.forEach((pageName: string, index: number) => {
-            let rotation = nodeOrientationBaseInRadians + 2 * Math.PI * index / homePage.connectionNames.length;
-            let node = this.generateNode(homeNode, rotation, 1, pageName)
-            this.createdNodes[pageName] = node;
-            homeNode.addNode(node, rotation);
-        })
+    public getUpdatedEdges(): Array<[GraphNode, GraphNode]> {
+        return this.lastComputedEdges === undefined ? [] : this.lastComputedEdges;
     }
 }
 
