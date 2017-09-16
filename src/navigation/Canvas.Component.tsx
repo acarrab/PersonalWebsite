@@ -4,6 +4,7 @@ import CanvasGraph from "./representation/graph/CanvasGraph";
 import Pages from "../pages/Pages";
 import { withRouter } from "react-router";
 
+// TODO: get fps from prop on Node Navigation Component
 const fps: number = 25.0;
 const msPerFrame = 1000 / fps;
 
@@ -69,7 +70,6 @@ class CanvasController {
 
 interface CanvasState {
     width: number;
-    height: number;
 }
 interface Location {
     pathname: string
@@ -79,6 +79,9 @@ interface History {
 }
 interface CanvasProps {
     history?: History;
+    resolution: number;
+    fps: number;
+    widthToHeightRatio: number;
 }
 
 class CanvasComponent extends React.Component<CanvasProps> {
@@ -86,11 +89,10 @@ class CanvasComponent extends React.Component<CanvasProps> {
     state: CanvasState;
     canvas: HTMLCanvasElement;
     props: CanvasProps;
-    constructor() {
+    constructor(props:CanvasProps) {
         super();
         this.state = {
-            width: 1000,
-            height: 1000
+            width: props.resolution
         };
     }
     componentDidMount() {
@@ -104,24 +106,19 @@ class CanvasComponent extends React.Component<CanvasProps> {
         window.addEventListener("resize", this.update.bind(this));
         this.update();
     }
-    
+
     componentWillUnmount() {
         window.removeEventListener("resize", this.update.bind(this));
     }
 
     componentWillReceiveProps() {
-        console.log(this.props);
-        if (this.props.history !== undefined) {
-            console.log("RECIEVED PROP");
-            console.log(this.props.history.location.pathname);
-        }
         this.update()
     }
     update(): void {
         let w = this.canvas.clientWidth;
         let h = this.canvas.clientHeight;
         // height  always stays the same
-        this.setState({ width: baseSize * w / h });
+        this.setState({ width: this.props.resolution * w / h });
         if (this.props.history !== undefined) {
             Pages.getInstance().setCurrentRoute(this.props.history.location.pathname);
         } else {
@@ -133,7 +130,7 @@ class CanvasComponent extends React.Component<CanvasProps> {
     }
     public render() {
         return (
-            <canvas ref="canvas" width={this.state.width} height={this.state.height} />
+            <canvas ref="canvas" width={this.state.width} height={this.props.resolution} />
         );
     }
 }

@@ -8,7 +8,7 @@
   },
   "keywords": {},
   "scripts": {
-    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot",
+    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot  --define process.env.NODE_ENV='\"development\"'",
     "build": "./node_modules/webpack/bin/webpack.js"
   },
   "author": "Angelo Carrabba",
@@ -19,6 +19,7 @@
     "@types/prop-types": "^15.5.1",
     "@types/react": "^16.0.5",
     "@types/react-dom": "^15.5.4",
+    "@types/react-measure": "^2.0.0",
     "@types/react-router": "^4.0.15",
     "@types/react-router-dom": "^4.0.7",
     "@types/react-tap-event-plugin": "0.0.30",
@@ -27,6 +28,7 @@
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-measure": "^2.0.2",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-tap-event-plugin": "^2.0.1",

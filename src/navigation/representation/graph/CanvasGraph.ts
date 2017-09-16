@@ -16,7 +16,6 @@ export default class CanvasGraph extends PageGraph implements Updateable {
         nodeList.forEach(node => {
             this.canvasNodes.push(new CanvasNode(node));
         })
-        console.log(nodeList);
     }
     public draw(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D):boolean {
         if (this.edges != undefined) {

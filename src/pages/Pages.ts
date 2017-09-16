@@ -44,7 +44,6 @@ export default class Pages {
         return this.currentRoute.slice();
     }
     public setCurrentRoute(route:string) {
-        console.log(route);
         this.currentRoute = route.slice();
     }
 

@@ -51,7 +51,6 @@ export default class CanvasNode {
             ctx.strokeStyle = "blue";
         }
         ctx.stroke();
-        //console.log(position);
         return wasUpdate;
     }
 }

@@ -2,7 +2,7 @@
  import * as webpack from 'webpack';
 
  const projectRootPath = path.resolve(__dirname, '../');
- const assetsPath = path.resolve(projectRootPath, './dist/static');
+ const assetsPath = path.resolve(projectRootPath, './static');
 
  const config: webpack.Configuration = {
      context: path.resolve(__dirname, '..'),

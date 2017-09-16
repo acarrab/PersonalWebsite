@@ -63,8 +63,6 @@ export default class PagedGraph extends Graph {
         
         // generate once to init
         this.generateNodes(this.pages.getHomePage(), nodeOrientationBaseInRadians, 0);
-        console.log(this.pages);
-        console.log(this.generateNodes);
     }
 
     public update(width: number, height: number) {

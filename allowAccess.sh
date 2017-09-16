@@ -1,1 +1,1 @@
-chmod o+r index.html style.css ./dist/static/*
+chmod o+r index.html style.css ./static/bundle.js ./static/bundle.js.map
