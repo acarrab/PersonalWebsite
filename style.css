@@ -12,28 +12,14 @@ body {
 .mainContent {
     background-color: white;
     padding: .5em;
-    margin: 0em 2em 0em 2em;
+    /*margin: 0em 2em 0em 2em;*/
     -moz-box-shadow:    0em 0em .5em 0em #ddd;
     -webkit-box-shadow: 0em 0em .5em 0em #ddd;
     box-shadow:         0em 0em .5em 0em #ddd;
 }
 
-/* Canvas placement */
-.canvasContainer {
-    display: inline-block;
-    position: relative; 
-    margin-left:  7%;
-    width: 86%;
-    background-color: linen;
-}
-
-.canvasSizingDummy {
-    position: absolute;
-    margin-top: 86%;
-}
 
 canvas {
-    position: absolute;
     width: 100%;
-    max-height: 30em;
+    height: 30em;
 }

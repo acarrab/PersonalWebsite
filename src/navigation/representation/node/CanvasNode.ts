@@ -10,24 +10,24 @@ export default class CanvasNode {
     private radiiLastRead: number;
 
     private connectedCanvasNodes: Array<CanvasNode>;
-    
+
     private internalNode: PageNode;
-    
-    public constructor(node:PageNode) {
+
+    public constructor(node: PageNode) {
         this.internalNode = node;
     }
 
     draw(cvs: HTMLCanvasElement, ctx: CanvasRenderingContext2D): boolean {
         let wasUpdate = false;
-        
+
         let radius = this.internalNode.getRadius();
         let position = this.internalNode.getPosition();
-        
+
         if (this.radiiLastRead === undefined || radius !== this.radiiLastRead) {
             wasUpdate = true;
             this.radiiLastRead = radius;
         }
-        
+
         if (this.positionLastRead === undefined) {
             wasUpdate = true;
             this.positionLastRead = new Point(position.x, position.y);
@@ -38,15 +38,15 @@ export default class CanvasNode {
             this.positionLastRead.y = position.y;
         }
 
-        
+
         ctx.beginPath();
-        
+
         ctx.arc(position.x, position.y, radius, 0, Math.PI * 2);
         ctx.fillStyle = "yellow";
-        ctx.fill();
+        //ctx.fill();
         ctx.lineWidth = 5;
         if (this.internalNode.isPartOfPath()) {
-        ctx.strokeStyle = "orange";
+            ctx.strokeStyle = "orange";
         } else {
             ctx.strokeStyle = "blue";
         }

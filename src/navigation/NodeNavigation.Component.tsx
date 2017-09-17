@@ -12,24 +12,26 @@ const RESOLUTION = 1000;
 
 
 interface SizeState {
-    widthToHeightRatio: number;
+    heightToWidthRatio: number;
 }
+
+// used to update canvas size change on webpage to keep known ratios the same
 class SizeTrackedCanvas extends React.Component {
     state: SizeState;
     render() {
         this.state = {
-            widthToHeightRatio: 1
+            heightToWidthRatio: 1
         }
         return (
             <Measure
                 bounds
                 onResize={
                     ({ bounds }) => {
-                        if (bounds !== undefined) { this.setState({ widthToHeightRatio: bounds.width / RESOLUTION }); }
                         console.log(bounds);
+                        if (bounds !== undefined) { this.setState({ heightToWidthRatio: RESOLUTION / bounds.width }); }
                     }
                 }>
-                {({ measureRef }) => <div ref={measureRef}> <CanvasComponent widthToHeightRatio={this.state.widthToHeightRatio} resolution={RESOLUTION} fps={25} /></div>}
+                {({ measureRef }) => <div ref={measureRef}> <CanvasComponent widthToHeightRatio={this.state.heightToWidthRatio} resolution={RESOLUTION} fps={25} /></div>}
             </Measure>
         )
     }
@@ -39,8 +41,7 @@ class SizeTrackedCanvas extends React.Component {
 export default class NodeNavigationComponent extends React.Component {
     render() {
         return (
-            <div className="canvasContainer">
-                <div className="canvasSizingDummy"></div>
+            <div>
                 <SizeTrackedCanvas />
             </div>
         );

@@ -1,11 +1,15 @@
 // use "p" to avoid later errors
 class p {
+
     static Home = "Home";
     static About = "About";
     static Contact = "Contact";
+    static Test1 = "Test1";
+    static Test2 = "Test2";
+    static Test3 = "Test3";
+    static Test4 = "Test4";
+    static Test5 = "Test5";
 }
-
-
 
 export class Page {
     
@@ -40,13 +44,62 @@ export default class Pages {
     }
     
     private currentRoute: string;
+    private routeSubscriptions: { [route:string]: { [id:number]:(isActive:boolean) => void } } = {};
+    
     public getCurrentRoute(): string {
         return this.currentRoute.slice();
     }
-    public setCurrentRoute(route:string) {
-        this.currentRoute = route.slice();
+
+
+    private alertRoute(route:string, isActive:boolean) {
+        for (let routeId in this.routeSubscriptions[route]) {
+            this.routeSubscriptions[route][routeId](isActive);
+        }
+    }
+    private alertAll( oldRoute:string, newRoute:string) {
+        if (newRoute === oldRoute) return;
+        this.alertRoute(oldRoute, false);
+        this.alertRoute(newRoute, true);
     }
 
+    
+    public setCurrentRoute(route:string) {
+        this.alertAll(this.currentRoute, route);
+        this.currentRoute = route.slice();
+    }
+    /**
+     * 
+     * @param route route that you want to subscribe to
+     * @param callback the callback that is called when switched to and from this route
+     * @return returns subscription id that is used to unsubscribe later
+     */
+
+    // could make this have an alternate data structure with numbers we can definitely use 
+    // after deleted, but it probably wont be used for that many things
+    public subscribeToRoute(route:string, callback:(isActive:boolean) => void):number {
+        let id = -1;
+        if (this.routeSubscriptions[route] === undefined) {
+            this.routeSubscriptions[route] = { 0:callback };
+            id = 0
+        } else {
+            id = 0
+            while (this.routeSubscriptions[route][id] !== undefined) {
+                id++;
+            }
+            this.routeSubscriptions[route][id] = callback;
+        }
+        // call route and tell it whether it is active
+        callback(route === this.currentRoute);
+        return id;
+    }
+
+    public unsubscribeToRoute(route:string, subscriptionId: number) {
+        if (this.routeSubscriptions[route][subscriptionId] !== undefined) {
+            delete this.routeSubscriptions[route][subscriptionId];
+        }
+    }
+
+    
     
     private pages: Array<Page>;
     public get(index:number): Page {
@@ -64,7 +117,12 @@ export default class Pages {
         this.pages = [
             new Page(p.Home, "/", [p.About]),
             new Page(p.About, "/about", [p.Contact]),
-            new Page(p.Contact, "/contact"),
+            new Page(p.Contact, "/contact", [p.Test1]),
+            new Page(p.Test1, "/test1", [p.Test2, p.Test3, p.Test4, p.Test5]),
+            new Page(p.Test2, "/test2"),
+            new Page(p.Test3, "/test3"),
+            new Page(p.Test4, "/test4"),
+            new Page(p.Test5, "/test5")
         ];
         this.fixPages();
     }

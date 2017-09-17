@@ -3,7 +3,7 @@ import Pages from "../../../pages/Pages";
 import PageNode from "../node/PageNode";
 import GraphNode from "../node/GraphNode";
 
-const nodeOrientationBaseInRadians = 0;
+const nodeOrientationBaseInRadians = Math.PI/2;
 
 export default class PagedGraph extends Graph {
 

@@ -70,6 +70,7 @@ class CanvasController {
 
 interface CanvasState {
     width: number;
+    height: number;
 }
 interface Location {
     pathname: string
@@ -92,7 +93,8 @@ class CanvasComponent extends React.Component<CanvasProps> {
     constructor(props:CanvasProps) {
         super();
         this.state = {
-            width: props.resolution
+            width: props.resolution,
+            height: props.resolution
         };
     }
     componentDidMount() {
@@ -118,7 +120,7 @@ class CanvasComponent extends React.Component<CanvasProps> {
         let w = this.canvas.clientWidth;
         let h = this.canvas.clientHeight;
         // height  always stays the same
-        this.setState({ width: this.props.resolution * w / h });
+        this.setState({ height: this.props.resolution * h / w });
         if (this.props.history !== undefined) {
             Pages.getInstance().setCurrentRoute(this.props.history.location.pathname);
         } else {
@@ -130,7 +132,7 @@ class CanvasComponent extends React.Component<CanvasProps> {
     }
     public render() {
         return (
-            <canvas ref="canvas" width={this.state.width} height={this.props.resolution} />
+            <canvas ref="canvas" width={this.state.width} height={this.state.height}/>
         );
     }
 }

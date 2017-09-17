@@ -18,9 +18,10 @@ class GeometricSeriesCap {
     }
 }
 
-const guaranteedDepth = 5;
-const radiusTransformer = new GeometricSeriesCap(.9, guaranteedDepth);
-const distanceTransformer = new GeometricSeriesCap(.7, guaranteedDepth);
+const depth1 = 10;
+const radiusTransformer = new GeometricSeriesCap(.8, depth1);
+const depth2 = 5;
+const distanceTransformer = new GeometricSeriesCap(.8, depth2);
 
 
 export default class Graph {
@@ -62,8 +63,8 @@ export default class Graph {
      * @returns edges that were created
      */
     public update(width: number, height: number, headNode: GraphNode) {
-        this.radiusBase = Math.min(width, height) / 3.0;
-        this.distanceBase = Math.min(width, height) / 2.0;
+        this.radiusBase = Math.min(width, height) / 2.5;
+        this.distanceBase = Math.min(width, height) / 1.25;
         this.lastComputedEdges = [];
         // this makes it so you don't have to reset graph every time
         this.alternatingTrue = !headNode.wasVisited;
