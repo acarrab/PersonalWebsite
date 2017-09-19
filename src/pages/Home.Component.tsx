@@ -5,8 +5,12 @@ export default class Home extends React.Component {
         return (
             <div>
                 <h2>Welcome</h2>
-                <p>Currently under development.</p>
-                <p>Making node representation of website with canvas in order to represent user travel grapically with this in the background of the website</p>
+                <p>This website was created with Typescript, React, and the canvas element. You can look at the code on&nbsp;
+                <a href="https://github.com/acarrab/PersonalWebsite">
+                        Github
+                </a>.
+                </p>
+                <p>This website is intended to be used as a testing ground for random things that I wanted to try in my free time. </p>
             </div>
         );
     }
