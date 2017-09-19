@@ -35283,7 +35283,10 @@ var Home = /** @class */ (function (_super) {
                 "This website was created with Typescript, React, and the canvas element. You can look at the code on\u00A0",
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a", { href: "https://github.com/acarrab/PersonalWebsite" }, "Github"),
                 "."),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "This website is intended to be used as a testing ground for random things that I wanted to try in my free time. ")));
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "This website is intended to be used as a testing ground for random things that I wanted to try in my free time. "),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null,
+                "If you would like to take a gander at my resume, it is over\u00A0",
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a", { href: "./Resume/Resume.pdf" }, "here"))));
     };
     return Home;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component));
