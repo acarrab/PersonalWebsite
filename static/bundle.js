@@ -34628,9 +34628,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var baseUrl = "/~acarrab"; // my base url for school web page
+var baseUrl = "/~acarrab/#/"; // my base url for school web page
 if (process.env.NODE_ENV === 'development') {
-    baseUrl = "/";
+    baseUrl = "/#/";
 }
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_dom__["render"])((__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["a" /* BrowserRouter */], { basename: baseUrl },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null,
