@@ -2,6 +2,7 @@ import PageGraph from "./PageGraph";
 import CanvasNode from "../node/CanvasNode";
 import GraphNode from "../node/GraphNode";
 import { Updateable, drawAll } from "../../../Process";
+import Artist from "../../Artist";
 
 
 
@@ -38,10 +39,11 @@ export default class CanvasGraph extends PageGraph implements Updateable {
                 ctx.beginPath();
                 ctx.moveTo(a.x, a.y);
                 ctx.lineTo(b.x, b.y);
+
                 if (edge[0].isPartOfPath() && edge[1].isPartOfPath()) {
-                    ctx.strokeStyle = "orange";
+                    ctx.strokeStyle = Artist.getFadingGradient(canvas, ctx, "orange");
                 } else {
-                    ctx.strokeStyle = "blue";
+                    ctx.strokeStyle = Artist.getFadingGradient(canvas, ctx, "blue");
                 }
                 ctx.stroke();
             })

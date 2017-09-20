@@ -1,7 +1,7 @@
 import PageNode from "./PageNode";
 import { Updateable } from "Process";
 import { Point } from "./Node";
-
+import Artist from "../../Artist";
 /**
  * Drawable graph node that maintains whether it is actually updating 
  */
@@ -46,9 +46,9 @@ export default class CanvasNode {
         //ctx.fill();
         ctx.lineWidth = 5;
         if (this.internalNode.isPartOfPath()) {
-            ctx.strokeStyle = "orange";
+            ctx.strokeStyle = Artist.getFadingGradient(cvs, ctx, "orange");
         } else {
-            ctx.strokeStyle = "blue";
+            ctx.strokeStyle = Artist.getFadingGradient(cvs, ctx, "blue");
         }
         ctx.stroke();
         return wasUpdate;
