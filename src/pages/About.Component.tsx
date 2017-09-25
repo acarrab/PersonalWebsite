@@ -10,7 +10,8 @@ export default function About() {
                     cool stuff at a large scale.
                 </p>
             <p>
-                He has dabbled in web development, problems on HackerRank, but gets caught up on fun projects that
+                He has dabbled in web development, problems on&nbsp;
+                <a href="https://www.hackerrank.com/acarrabba6">HackerRank</a>, and has fun with projects that
                     are encountered through school. Here is my&nbsp;
                     <a href="./Resume/Resume.pdf">Resume</a> and there is other random stuff below.
                 </p>
