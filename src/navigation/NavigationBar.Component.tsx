@@ -13,7 +13,9 @@ interface ActiveLinkState {
 }
 
 
-// not well tested yet
+/*
+    A lot of this could be done with active class name :(
+*/
 class ActiveLink extends React.Component<ActiveLinkInput> {
     route: string;
     to: string;
