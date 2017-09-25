@@ -15,6 +15,7 @@ export default function About() {
                     <a href="./Resume/Resume.pdf">Resume</a> and there is other random stuff below.
                 </p>
             <h2>This Website Information</h2>
+            <hr />
             <h4>Node Navigation Representation</h4>
             <p>
                 This website uses TypeScript, React, and Bootstrap (although just plain Bootstrap and not react-bootstrap).

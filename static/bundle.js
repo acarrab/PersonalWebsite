@@ -35236,6 +35236,7 @@ function About() {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a", { href: "./Resume/Resume.pdf" }, "Resume"),
             " and there is other random stuff below."),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h2", null, "This Website Information"),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h4", null, "Node Navigation Representation"),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "This website uses TypeScript, React, and Bootstrap (although just plain Bootstrap and not react-bootstrap). I made some modules in order to represent the website pages as a graph. While this is not particularly useful, it was useful for at least learning how to use react at a relatively basic level and was fun to create and wire up."),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h4", null, "Nodes and Graph Creation"),
