@@ -13429,7 +13429,9 @@ var __extends = (this && this.__extends) || (function () {
 
 
 
-// not well tested yet
+/*
+    A lot of this could be done with active class name :(
+*/
 var ActiveLink = /** @class */ (function (_super) {
     __extends(ActiveLink, _super);
     function ActiveLink(props) {
@@ -35221,30 +35223,33 @@ var PageNode = /** @class */ (function (_super) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = About;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 
-var About = /** @class */ (function (_super) {
-    __extends(About, _super);
-    function About() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    About.prototype.render = function () {
-        return (__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, "About"));
-    };
-    return About;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component));
-/* harmony default export */ __webpack_exports__["a"] = (About);
+function About() {
+    return (__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1", null, "Angelo Carrabba"),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "Angelo is a computer science student who tends to focus on research related work, but really enjoys the software development process and the fun that comes from building cool stuff at a large scale."),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null,
+            "He has dabbled in web development, problems on HackerRank, but gets caught up on fun projects that are encountered through school. Here is my\u00A0",
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a", { href: "./Resume/Resume.pdf" }, "Resume"),
+            " and there is other random stuff below."),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h2", null, "This Website Information"),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h4", null, "Node Navigation Representation"),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "This website uses TypeScript, React, and Bootstrap (although just plain Bootstrap and not react-bootstrap). I made some modules in order to represent the website pages as a graph. While this is not particularly useful, it was useful for at least learning how to use react at a relatively basic level and was fun to create and wire up."),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h4", null, "Nodes and Graph Creation"),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "The graph of the website pages is created through a basic adjacency matrix of the pages. It then uses a depth first search to assign depths to the directed graphs nodes. Using these depths, when drawing you can draw the back path, which is the highlighted orange on the graph. This is done by doing a breadth first search from current node and looking for inversions in the depths between two nodes from the original depth when drawing."),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h4", null, "Canvas use Specifics and Explanation"),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "The website uses the html canvas object in order to create 2d graphics that represent the website. This called for the creation of a process object in order to run the drawing process. The code is object oriented through the use of TypeScript."),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h2", null, "Wizard Game"),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "This wizard game that was made from the game engine level for my course in 2d game engine design. I used some fun geometry in order to create a capturing zone that places the particle objects flying around the characters gem onto a rotating vector of the particles. I also drew my sprites based off another wizard game, if you can tell which one!"),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("video", { width: "100%", height: "240", controls: true },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("source", { src: "./Resources/WizardGame.mp4", type: "video/mp4" }),
+            "Your browser does not support the video tag."),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h2", null, "~ More to come ~")));
+}
 
 
 /***/ }),
